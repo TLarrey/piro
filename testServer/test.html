@@ -1,0 +1,65 @@
+<html>
+  <head>
+    <script type="text/javascript">
+
+	var socket;
+
+	function createWebSocket(host) {
+		if(window.MozWebSocket) {
+		        window.WebSocket=window.MozWebSocket;
+		}
+
+		if(!window.WebSocket) {
+		        alert('Votre navigateur ne supporte pas les webSocket!');
+		        return false;
+		} else {
+
+		        socket = new WebSocket(host);
+		        socket.onopen = function() { alert('socket ouverte'); }
+		        socket.onclose = function() { alert('socket fermée'); }
+		        socket.onerror = function() { alert('Une erreur est survenue'); }
+
+		        socket.onmessage = function(msg){
+		                try { //tente de parser data
+		                        data = JSON.parse(msg.data);
+		                } catch(exception) {
+		                        data = msg.data
+		                }      
+		                //ici on poura effectuer tout ce que l'on veux sur notre objet data
+		        }
+		}
+	}
+
+	function sendMessage(data) {
+		if(typeof data == 'object') { // si data est un objet on le change en chaine
+		        data = JSON.stringify(data);
+		}
+		socket.send(data);
+	}
+
+      function handleClickQuit()
+      {
+	sendMessage("Quit");
+        return false; // prevent further bubbling of event
+      }
+      function handleClickGeneric()
+      {
+        alert(document.getElementById("CommandLine").value);
+	sendMessage(document.getElementById("CommandLine").value);
+        return false; // prevent further bubbling of event
+      }
+
+      createWebSocket("ws://xx.xx.xx.xx:xx");
+
+    </script>
+  </head>
+<body>
+      <form name="quitForm" onSubmit="return handleClickQuit()">
+	<input type="submit" value="submitQuit" value="Quit" />
+      </form>
+     <form name="genericForm" onSubmit="return handleClickGeneric()">
+	<input type="text" name="command" placeholder="enter a command" id="CommandLine"/>            
+	<input type="submit" value="submit" value="Send Command : " />	
+      </form>
+</body>
+</html>

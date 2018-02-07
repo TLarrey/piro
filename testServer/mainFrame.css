@@ -1,0 +1,39 @@
+body {
+	font-size:small;
+}
+
+#DualMotorMovefwd {
+	padding-left:55;
+	padding-top:10;
+	width:30;
+	height:30;
+}
+
+#DualMotorMoveleft {
+	padding-top:5;
+	padding-left:10;
+	width:30;
+	height:30;
+}
+
+
+#DualMotorMovestp {
+	padding-top:5;
+	padding-left:12;
+	width:30;
+	height:30;
+}
+
+#DualMotorMovebwd {
+	padding-left:55;
+	padding-top:5;
+	width:30;
+	height:30;
+}
+
+#DualMotorMoveright {
+	padding-top:5;
+	padding-left:10;
+	width:30;
+	height:30;
+}

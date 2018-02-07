@@ -1,0 +1,73 @@
+<html>
+<head>
+	<script src="services_js.js"></script>
+	<script src="robotCanvas.js"></script>
+	<script src="debugCanvas.js"></script>
+	<script src="sensorCanvas.js"></script>
+	<script src="dualmotors.js"></script>
+	<script src="sensor.js"></script>
+	<script src="servo.js"></script>
+	<link rel="stylesheet" href="mainFrame.css" type="text/css" media="screen"/>
+</head>
+<body onLoad="initPage()">
+	<div id="GeneralStatus">
+		<img id='serverStatusId' src="./images/redStatus.png" width="30" height="30" />
+		<input type='button' id='KillServerBtn' value="Kill Server" onclick="generic_shutdownServer(CB_shutdownServer);" />
+		<input type='button' id='EnableDualTracking' value="Start tracking" onclick="RobotTracking();" />
+		<input type='button' id='ResetTracking' value="Reset tracking" onclick="ResetTracking();" /></br>
+	</div>
+	<div id="AutoModeCtrl">
+		<h1>Standalone</h1>
+		<input type='button' id='AutoMoveId' value="Start auto mode" onclick="AutoMoveMode();" />
+		<input type='button' id='AutoMoveTargetId' value="Update Target" onclick="AutoMoveSetTarget(CB_AutoMoveSetTarget);" />
+	</div>
+	<div id="DualMotorCtrl">
+		<h1>DualMotors</h1>
+		<h2>Control</h2>
+		Update motors speed :
+		<input type="range" id="DualMotorSpeedRge" min="1" max="100" step="1" value="50" onmouseup="DualMotorSetSpeed(CB_DualMotorSetSpeed)" />
+		<text id="speedJaugeId"></text>
+		<br>
+		Turn <text id="DualMotorAngleValueId" disable>0</text> degree(s)
+		<input type="range" id="DualMotorAngleId" min="10" max="350" step="10" value="0" onchange=DualMotorsUpdateAngleValue() />
+		<input type="button" id="DualMotorSetAngleId" value="Set Angle" onclick="DualMotorSetAngle(CB_DualMotorSetAngle)" />	
+		<div id="DualMotorMoveId">	
+			<img id="DualMotorMovefwd" src="./images/top-arrow.png" onClick=DualMotorMoveFwd(CB_DualMotorMove) />
+			<br>
+			<img id="DualMotorMoveleft" src="./images/left-arrow.png" onClick=DualMotorMoveLeft(CB_DualMotorMove) />
+			<img id="DualMotorMovestp" src="./images/stopped.png" onClick=DualMotorMoveStop(CB_DualMotorMove) />		
+			<img id="DualMotorMoveright" src="./images/right-arrow.png" onClick=DualMotorMoveRight(CB_DualMotorMove) />
+			<br>
+			<img id="DualMotorMovebwd" src="./images/bottom-arrow.png" onClick=DualMotorMoveBwd(CB_DualMotorMove) />			
+		</div>
+	</div>
+
+        <div id="SensorCtrl">
+		<h1>UltraSound</h1>
+		<h2>Control</h2>
+		<input type="range" id="UltraSoundPeriodId" min="100" max="5000" step="100" value="1000" />
+		<input type='button' id='EnableUltraSoundId' value="Start sensor" onclick="UltraSoundControl();" />
+		<input type='button' id='EnableUltragetResultId' value="getResults" onclick="UltraSound_getResult(CB_UltraSound_getResult);" />
+	</div>
+	<div id="ServoCtrl">
+		<h1>Servo</h1>
+		<h2>Control</h2>
+		<input type='button' id='ServoEnableId' value="Start Infinite Move" onclick="ServoEnableDisable();" />
+	</div>
+	<div id="trackingId">
+		<canvas id="layerDebug" width="200" height="480" 
+	   		style="position: absolute; left: 1000; top: 30;"></canvas>
+	 	<canvas id="layerRobot" width="480" height="480" 
+	   		style="position: absolute; left: 500; top: 30; z-index: 3;"></canvas>
+		<canvas id="layerTraceRobot" width="480" height="480" 
+	   		style="position: absolute; left: 500; top: 30; z-index: 2;"></canvas>
+	 	<canvas id="layerEnv" width="480" height="480" 
+	   		style="position: absolute; left: 500; top: 30; z-index: 1;"></canvas>
+		<canvas id="layerMap" width="480" height="480" 
+	   		style="position: absolute; left: 500; top: 30; z-index: 0;"></canvas>
+	</div>
+	
+</body>
+</html>
+
+
